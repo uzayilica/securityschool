@@ -1,6 +1,7 @@
 package com.uzay.securityschool.school.repo;
 
 
+import com.uzay.securityschool.school.entity.School;
 import com.uzay.securityschool.school.entity.StudentLesson;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,8 +20,10 @@ public interface StudentLessonRepository extends JpaRepository<StudentLesson, Lo
             "INNER JOIN sl.lesson l " +
             "WHERE s.studentId = :studentId")
     List<StudentLesson> findLessonsByStudentId(@Param("studentId") Integer studentId);
-}
 
+
+    List<StudentLesson> findByLessonSchool(School school);
+}
 
 
 

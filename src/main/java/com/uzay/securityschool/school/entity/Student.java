@@ -42,9 +42,10 @@ public class Student {
     @JsonManagedReference("s-s")
     private List<StudentLesson> studentLessons; // Öğrencinin ders ilişkileri
 
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "student")
     List<Teacher> teacher;
+
 
 
 
