@@ -98,5 +98,14 @@ public class SchoolController {
     }
 
 
+    @GetMapping("/school-teacher")
+    public ResponseEntity<?> getTeachers() {
+        School school = schoolRepository.findById(1).orElseThrow();
+        List<Teacher> teachers = school.getTeacher();  // Teacher'lara erişim
+        return ResponseEntity.ok().body(teachers);
+    }
+
+
+
 
 }

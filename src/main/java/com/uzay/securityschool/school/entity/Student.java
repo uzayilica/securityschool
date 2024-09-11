@@ -11,24 +11,17 @@ import lombok.Setter;
 
 import java.util.List;
 @Entity
-
 @Getter
-
 @Setter
-
 @AllArgsConstructor
-
 @NoArgsConstructor
 
 public class Student {
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Integer studentId;
-
     private String studentName;
-
     private String studentYas;
 
     @ManyToOne
@@ -38,12 +31,12 @@ public class Student {
 
 
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("s-s")
     private List<StudentLesson> studentLessons; // Öğrencinin ders ilişkileri
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "student")
+    @ManyToMany(mappedBy = "student",cascade = CascadeType.ALL)
     List<Teacher> teacher;
 
 

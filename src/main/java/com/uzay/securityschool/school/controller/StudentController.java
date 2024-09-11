@@ -6,6 +6,7 @@ import com.uzay.securityschool.school.entity.StudentLesson;
 import com.uzay.securityschool.school.repo.SchoolRepository;
 import com.uzay.securityschool.school.repo.StudentLessonRepository;
 import com.uzay.securityschool.school.repo.StudentRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,5 +76,30 @@ public class StudentController {
 
         return ResponseEntity.ok(savedStudent);
     }
+    @Transactional
+    @PostMapping("/student-ekle3")
+    public ResponseEntity<Student> addStudentLesson(@RequestBody Student student) {
+
+        //kullanıcının girdiği okul id değerini alalım
+
+        Integer schoolId = student.getSchool().getSchoolId();
+        School school = schoolRepository.findById(schoolId).orElseThrow(() -> new IllegalStateException("School id " + schoolId + " not found"));
+        student.setSchool(school);
+        Student studentnew = studentRepository.save(student);
+
+        student.getStudentLessons().forEach((val->val.setStudent(studentnew)));
+        studentLessonRepository.saveAll(student.getStudentLessons());
+        return ResponseEntity.ok(studentnew);
+    }
+
+    @Transactional
+    @DeleteMapping("/student-sil/{id}")
+    public ResponseEntity<?> deleteStudent(@PathVariable Integer id) {
+        studentRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+
+
 
 }

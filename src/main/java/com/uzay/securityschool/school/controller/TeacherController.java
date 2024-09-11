@@ -8,9 +8,7 @@ import com.uzay.securityschool.school.repo.StudentRepository;
 import com.uzay.securityschool.school.repo.TeacherRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,4 +77,11 @@ public class TeacherController {
 
         return ResponseEntity.ok(savedTeacher);
     }
+
+    @DeleteMapping("/teacher-sil/{id}")
+    public ResponseEntity<?>deleteTeacher(@PathVariable Integer id){
+        teacherRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

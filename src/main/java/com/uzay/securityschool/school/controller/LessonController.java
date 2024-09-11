@@ -6,9 +6,7 @@ import com.uzay.securityschool.school.repo.LessonRepository;
 import com.uzay.securityschool.school.repo.SchoolRepository;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class LessonController {
@@ -37,6 +35,14 @@ public class LessonController {
         return ResponseEntity.ok(save);
 
 
+    }
+
+    @DeleteMapping("/lesson-sil/{id}")
+    public ResponseEntity<?> deleteResponseEntity(@PathVariable Integer id) {
+        if (lessonRepository.existsById(id)) {
+            lessonRepository.deleteById(id);
+        }
+        return ResponseEntity.ok().build();
     }
 
 
